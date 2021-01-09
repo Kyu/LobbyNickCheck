@@ -60,7 +60,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     // compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
-    shade group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+    // shade group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
 
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..

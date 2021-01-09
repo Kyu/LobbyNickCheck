@@ -1,6 +1,5 @@
 package me.preciouso.lobbynickcheck.MojangWrapper;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
@@ -8,7 +7,6 @@ import com.ning.http.client.AsyncHttpClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,21 +67,15 @@ public class UserCheck {
             String bodyResponse = response.getBody();
             int statusCode = response.getStatusCode();
 
-            ObjectMapper mapper = new ObjectMapper();
-
             if (Strings.isNullOrEmpty(bodyResponse)) {
                 Minecraft.getMinecraft().thePlayer.addChatMessage(
                         new ChatComponentText("Command failed with Mojang API Code: " + statusCode));
             } else {
-                try {
-                    // new Gson().fromJson(bodyResponse, JsonBodyObject[].class);
-                    // List<JsonBodyObject> list = Arrays.asList(mapper.readValue(bodyResponse, JsonBodyObject[].class));
-                    JsonBodyObject[] list = mapper.readValue(bodyResponse, JsonBodyObject[].class);
-                    for (JsonBodyObject bodyObject : list) {
-                        valid.add(bodyObject.getName());
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                // new Gson().fromJson(bodyResponse, JsonBodyObject[].class);
+                // List<JsonBodyObject> list = Arrays.asList(mapper.readValue(bodyResponse, JsonBodyObject[].class));
+                JsonBodyObject[] list = new Gson().fromJson(bodyResponse, JsonBodyObject[].class);
+                for (JsonBodyObject bodyObject : list) {
+                    valid.add(bodyObject.getName());
                 }
             }
 
