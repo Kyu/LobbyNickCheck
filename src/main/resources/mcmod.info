@@ -1,0 +1,16 @@
+[
+{
+  "modid": "lobbynickcheck",
+  "name": "Lobby Nick Check",
+  "description": "Mod to verify lobby usernames with Mojang",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/Kyu/LobbyNickCheck",
+  "updateUrl": "",
+  "authorList": ["Precious O."],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
