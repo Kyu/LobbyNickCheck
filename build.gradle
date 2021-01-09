@@ -41,7 +41,6 @@ minecraft {
 reobf {
     jar {
         extraLines "PK: com/ning/http/client me/preciouso/lobbynickcheck/MojangWrapper/com/ning/http/client"
-        extraLines "PK: com/fasterxml/jackson/databind me/preciouso/lobbynickcheck/MojangWrapper/com/fasterxml/jackson/databind"
         extraLines "PK: org/slf4j/ me/preciouso/lobbynickcheck/MojangWrapper/org/slf4j/"
     }
 }

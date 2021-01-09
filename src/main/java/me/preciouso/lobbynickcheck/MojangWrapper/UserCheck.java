@@ -71,8 +71,6 @@ public class UserCheck {
                 Minecraft.getMinecraft().thePlayer.addChatMessage(
                         new ChatComponentText("Command failed with Mojang API Code: " + statusCode));
             } else {
-                // new Gson().fromJson(bodyResponse, JsonBodyObject[].class);
-                // List<JsonBodyObject> list = Arrays.asList(mapper.readValue(bodyResponse, JsonBodyObject[].class));
                 JsonBodyObject[] list = new Gson().fromJson(bodyResponse, JsonBodyObject[].class);
                 for (JsonBodyObject bodyObject : list) {
                     valid.add(bodyObject.getName());
