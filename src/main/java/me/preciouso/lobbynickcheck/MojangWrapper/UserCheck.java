@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.ning.http.client.AsyncHttpClient;
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.ChatComponentText;
 
 import java.nio.charset.StandardCharsets;
@@ -18,7 +19,7 @@ public class UserCheck {
     ArrayList<String> validateUsernames(ArrayList<String> names) {
         ArrayList<String> valid = new ArrayList<>();
         for (String name: names) {
-            if (name.length() < 16) {
+            if (name.length() <= 16) {
                 if (StandardCharsets.US_ASCII.newEncoder().canEncode(name)) {
                     if (name.replaceAll("[^_a-zA-Z0-9&]", "").equals(name)) {
                         valid.add(name);
@@ -57,6 +58,8 @@ public class UserCheck {
         List<List<String>> nameList = partition(validatedNames);
 
         for (List<String> namePart : nameList) {
+            // PlayerProfileCache cee = new PlayerProfileCache();
+
             String jsonBody = new Gson().toJson(namePart);
             System.out.println("Checking as json: " + jsonBody);
 
@@ -69,7 +72,7 @@ public class UserCheck {
 
             if (Strings.isNullOrEmpty(bodyResponse)) {
                 Minecraft.getMinecraft().thePlayer.addChatMessage(
-                        new ChatComponentText("Command failed with Mojang API Code: " + statusCode));
+                        new ChatComponentText("§cCommand failed with Mojang API Code: " + statusCode + "§r"));
             } else {
                 JsonBodyObject[] list = new Gson().fromJson(bodyResponse, JsonBodyObject[].class);
                 for (JsonBodyObject bodyObject : list) {
@@ -89,15 +92,15 @@ public class UserCheck {
         String invalidStr = invalid.toString().replace("[", "").replace("]", "");
 
         if (! Strings.isNullOrEmpty(validStr)) {
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Valid names on server"));
+            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("§l§2Valid names on server§r"));
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(validStr));
         }
 
         if (! Strings.isNullOrEmpty(invalidStr)) {
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Invalid names on server"));
+            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("§l§4Invalid names on server§r"));
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(invalidStr));
         }
 
-        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Players checked = " + names.size()));
+        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("§5Players checked = " + names.size() + "§r"));
     }
 }
